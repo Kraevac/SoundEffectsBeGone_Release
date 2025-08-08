@@ -1,0 +1,38 @@
+# === SYSTEM & OS CRAP ===
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# === MOD PACKAGING ===
+*.zip
+*.7z
+*.rar
+
+# === TEXT EDITORS ===
+*.bak
+*.tmp
+*.swp
+*.swo
+
+# === VSCODE ===
+.vscode/
+*.code-workspace
+
+# === LOGS & BACKUPS ===
+*.log
+*.old
+*.backup
+*.orig
+
+# === PYTHON ===
+__pycache__/
+*.py[cod]
+*.pyo
+
+# === WINDOWS JUNK ===
+ehthumbs.db
+$RECYCLE.BIN/
+
+# === GIT FILES YOU SHOULD NEVER IGNORE ===
+!.gitattributes
+!.gitignore
