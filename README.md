@@ -1,4 +1,4 @@
-# 🚀 Modlet Release: Screen Effects Be Gone
+# 🚀 Modlet Release: Sound Effects Be Gone
 
 This modlet is part of the **DemonataCore** suite.
 
