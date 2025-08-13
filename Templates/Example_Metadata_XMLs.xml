@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Demonata Gaming Metadata Format ©2025
+  Licensed for use under terms in LICENSE.md.
+-->
+<!--
+  ==================================================
+  Loot Changes - Starter Zone Medical Balance
+  @version     1.0.0
+  @date        2025-08-04
+  @author      Demonata Gaming
+  @group       LootBalance_StarterZone
+  @description
+    Reduces high-tier medical loot in Pine Forest POIs to
+    create early-game healing tension and support natural recovery systems.
+  @xref        buffs.xml → SECTION: INFECTION STAGE PROGRESSION
+  @notes
+    - Applies only to tier 1 containers in the Forest biome.
+    - Ensures honey and bandages remain relevant past Day 1.
+  ==================================================
+-->
+<configs>
+  <!--
+  ===============================
+  SECTION: PINE FOREST MEDICAL LOOT
+  ===============================
+  @group     LootBalance_StarterZone
+  @desc      Cuts antibiotics and first aid kits from tier 1 containers in Pine Forest.
+  @notes     This section assumes that healing herbs and honey are lootable elsewhere.
+  @xref      entitygroups.xml → SECTION: PINE FOREST ZOMBIES
+  -->
+  <set xpath="/lootcontainers/lootcontainer[@id='medicalForestT1']/item[@name='antibiotics']" value="remove"/>
+  <set xpath="/lootcontainers/lootcontainer[@id='medicalForestT1']/item[@name='firstAidKit']" value="remove"/>
+  <append xpath="/lootcontainers/lootcontainer[@id='medicalForestT1']">
+    <item name="bandage" count="1" prob="0.35"/>
+    <item name="honey" count="1" prob="0.15"/>
+  </append>
+</configs>
+
+
+<!-- ============================================================================ -->
+
+
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ==================================================
+  Buff Effects - Infection Stage Progression
+  @version     1.0.0
+  @date        2025-08-04
+  @author      Demonata Gaming
+  @group       StatusEffects_Infection
+  @description
+    Introduces multi-stage infection progression with visible indicators and
+    reduced healing windows at higher stages.
+  @xref        ui_display.xml → SECTION: STATUS EFFECT ICONS
+  @notes
+    - Each stage ramps the damage and healing penalty.
+    - Requires new icons and buff triggers handled by external systems.
+  ==================================================
+-->
+<configs>
+  <!--
+  ===============================
+  SECTION: INFECTION STAGE 1
+  ===============================
+  @group     StatusEffects_Infection
+  @desc      Low-level infection with minor penalties and long cure window.
+  @notes     Honey or herbal antibiotics cure this stage fully.
+  @ref       SECTION: INFECTION STAGE 2
+  -->
+  <buff name="buffInfectionStage1">
+    <duration value="1800"/>
+    <effect_group>
+      <passive_effect name="StaminaRegen" operation="perc_add" value="-0.1"/>
+      <passive_effect name="HealingRate" operation="perc_add" value="-0.15"/>
+    </effect_group>
+  </buff>
+  <!--
+  ===============================
+  SECTION: INFECTION STAGE 2
+  ===============================
+  @group     StatusEffects_Infection
+  @desc      Mid-level infection with noticeable stamina and health regen penalty.
+  @notes     Only full antibiotics will cure this stage. Triggers warning UI icon.
+  @xref      loot.xml → SECTION: PINE FOREST MEDICAL LOOT
+  -->
+  <buff name="buffInfectionStage2">
+    <duration value="1200"/>
+    <effect_group>
+      <passive_effect name="StaminaRegen" operation="perc_add" value="-0.25"/>
+      <passive_effect name="HealingRate" operation="perc_add" value="-0.3"/>
+      <passive_effect name="EntityDamageReceived" operation="perc_add" value="0.1"/>
+    </effect_group>
+  </buff>
+</configs>
